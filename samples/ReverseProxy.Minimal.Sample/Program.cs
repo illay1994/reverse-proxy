@@ -5,6 +5,12 @@ builder.Services.AddReverseProxy()
 
 var app = builder.Build();
 
+app.Use((context, next) =>
+{
+    context.Request.EnableBuffering();
+    return next(context);
+});
+
 app.MapReverseProxy();
 
 app.Run();
